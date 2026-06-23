@@ -24,7 +24,7 @@
           placeholder="New task..."
           @keyup.enter="handleAdd"
         />
-        <ion-button class="handleAdd" expand="block"> 
+        <ion-button class="handleAdd" expand="block" @click="handleAdd"> 
           Add Task 
         </ion-button>
          
@@ -36,7 +36,11 @@
             :checked="task.done"
             @ionChange="toggleTask(task.id)"
           />
-          <ion-label :style="{ textDecoration: task.done ? 'line-through' : 'none' }">
+          <ion-label 
+          @click="goToDetail(task.id)"
+          :style="{ textDecoration: task.done ? 'line-through' : 'none',
+            cursor: 'pointer'
+           }">
             {{ task.name }}
           </ion-label>
           <ion-button color="danger" fill="clear" @click="removeTask(task.id)">
@@ -56,7 +60,8 @@
 
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue' 
+import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import {
   IonPage,
@@ -80,6 +85,8 @@ import {
 import { add, trash } from 'ionicons/icons'
 import { useTaskStore } from '../stores/taskStore'
 const taskStore = useTaskStore()
+const router = useRouter()
+
 const { tasks, totalCount, doneCount, pendingCount } = storeToRefs(taskStore)
 const { addTask, toggleTask, removeTask } = taskStore
 const newTaskName = ref('')
@@ -87,6 +94,12 @@ function handleAdd() {
   addTask(newTaskName.value)
   newTaskName.value = ''
 }
+
+function goToDetail(id: number) {
+  router.push(`/tabs/tasks/${id}`)
+}
+
+
 </script>
 
 <style>
