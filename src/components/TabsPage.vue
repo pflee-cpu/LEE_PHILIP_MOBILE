@@ -2,7 +2,7 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar slot="bottom">
+      <ion-tab-bar slot="bottom" class="custom-tab-bar">
         <ion-tab-button tab="tasks" href="/tabs/tasks">
           <ion-icon aria-hidden="true" :icon="list" />
           <ion-label>Tasks</ion-label>
@@ -31,3 +31,11 @@ import {
 } from '@ionic/vue'
 import { checkmarkDone, cog, list } from 'ionicons/icons'
 </script>
+<style scoped>
+.custom-tab-bar {
+  --background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+}
+</style>
