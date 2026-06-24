@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar class="glass-toolbar">
-        <ion-title>Completed</ion-title>
+      
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding completed-bg">
@@ -44,7 +44,6 @@ import {
   IonPage,
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonContent,
   IonList,
   IonItem,
@@ -86,7 +85,7 @@ const completedTasks = computed(() =>
   font-size: 30px;
   font-weight: 800;
   letter-spacing: -0.6px;
-  background: linear-gradient(135deg, #16a34a, #4ade80, #7c3aed);
+  background: linear-gradient(135deg, #16a34a, #4ade80);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

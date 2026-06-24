@@ -4,6 +4,7 @@ interface Task {
   id: number
   name: string
   done: boolean
+  photo?: string
 }
 export const useTaskStore = defineStore('tasks', () => {
   const tasks = ref<Task[]>([
@@ -32,6 +33,13 @@ export const useTaskStore = defineStore('tasks', () => {
   function removeTask(id: number) {
     tasks.value = tasks.value.filter(task => task.id !== id)
   }
+  function addPhotoToTask(id: number, path: string) {
+    const task = tasks.value.find(task => task.id === id)
+    if (task) {
+      task.photo = path
+    }
+  }
+
   return {
     tasks,
     totalCount,
@@ -39,6 +47,9 @@ export const useTaskStore = defineStore('tasks', () => {
     pendingCount,
     addTask,
     toggleTask,
-    removeTask
+    removeTask,
+    addPhotoToTask
   }
-})
+},
+{ persist: true}
+)

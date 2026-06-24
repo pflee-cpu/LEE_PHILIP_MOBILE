@@ -5,7 +5,7 @@
         <ion-buttons slot="start">
           <ion-back-button default-href="/tabs/tasks"></ion-back-button>
         </ion-buttons>
-        <ion-title>Task Detail</ion-title>
+        
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding detail-bg">
@@ -32,6 +32,15 @@
                 {{ task.done ? 'Completed' : 'Pending' }}
               </span>
             </div>
+            <ion-button expand="block" class="camera-btn" @click="takePhoto">
+                <ion-icon :icon="camera" slot="start"></ion-icon>
+                Add Photo
+            </ion-button>
+            <ion-img
+                v-if="task.photo"
+                :src="task.photo"
+                class="task-photo">
+            </ion-img>
           </ion-card-content>
         </ion-card>
         <ion-card v-else class="detail-card">
@@ -50,7 +59,6 @@ import {
   IonPage,
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonContent,
   IonCard,
   IonCardHeader,
@@ -58,9 +66,12 @@ import {
   IonCardContent,
   IonButtons,
   IonBackButton,
-  IonIcon
+  IonIcon,
+  IonButton,
+  IonImg
 } from '@ionic/vue'
-import { documentTextOutline } from 'ionicons/icons'
+import { documentTextOutline, camera } from 'ionicons/icons'
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
 import { useTaskStore } from '../stores/taskStore'
 const route = useRoute()
 const taskStore = useTaskStore()
@@ -68,6 +79,19 @@ const task = computed(() => {
   const id = Number(route.params.id)
   return taskStore.tasks.find(task => task.id === id)
 })
+async function takePhoto() {
+    if (!task.value) return
+    const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera
+    })
+    if (image.webPath) {
+        taskStore.addPhotoToTask(task.value.id, image.webPath)
+    }
+}
+
 </script>
 <style scoped>
 .detail-bg {
@@ -130,6 +154,17 @@ const task = computed(() => {
   color: #1f2937;
   font-size: 15px;
   font-weight: 600;
+}
+.camera-btn {
+    margin-top: 14px;
+    margin-bottom: 14px;
+    --border-radius: 14px;
+}
+.task-photo {
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    margin-top: 10px;
 }
 .fade-up-enter-active,
 .fade-up-leave-active {

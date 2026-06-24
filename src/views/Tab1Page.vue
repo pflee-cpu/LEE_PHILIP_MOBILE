@@ -2,7 +2,6 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar class="glass-toolbar">
-        <ion-title>Tasks</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding tasks-bg">
@@ -72,7 +71,10 @@
                 cursor: 'pointer'
               }"
             >
-              {{ task.name }}
+              <div class="task-label-wrap">
+                <span>{{ task.name }}</span>
+                <img v-if="task.photo" :src="task.photo" class="task-thumb" />
+              </div>
             </ion-label>
             <ion-button color="danger" fill="clear" @click="removeTask(task.id)">
               <ion-icon :icon="trash"></ion-icon>
@@ -96,7 +98,6 @@ import {
   IonPage,
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonContent,
   IonList,
   IonItem,
@@ -151,7 +152,7 @@ function goToDetail(id: number) {
   font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.6px;
-  background: linear-gradient(135deg, #7c3aed, #a78bfa, #60a5fa);
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -260,4 +261,19 @@ ion-fab-button {
   opacity: 0;
   transform: translateY(8px);
 }
+.task-label-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.task-thumb {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+
 </style>

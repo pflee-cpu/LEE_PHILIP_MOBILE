@@ -2,7 +2,6 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar class="glass-toolbar">
-        <ion-title>Settings</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding settings-bg">
@@ -44,7 +43,6 @@ import {
   IonPage,
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonContent,
   IonCard,
   IonCardContent,
@@ -81,7 +79,7 @@ const { totalCount, doneCount, pendingCount } = storeToRefs(taskStore)
   font-size: 30px;
   font-weight: 800;
   letter-spacing: -0.6px;
-  background: linear-gradient(135deg, #7c3aed, #a78bfa, #60a5fa);
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
