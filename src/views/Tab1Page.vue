@@ -47,7 +47,7 @@
       <transition name="fade-up" appear>
         <ion-card v-if="tasks.length === 0" class="empty-card">
           <ion-card-content class="ion-text-center">
-            No tasks yet.
+            No tasks yet. Add a Task!
           </ion-card-content>
         </ion-card>
       </transition>

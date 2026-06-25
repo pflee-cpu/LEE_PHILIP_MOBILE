@@ -80,16 +80,17 @@ const task = computed(() => {
   return taskStore.tasks.find(task => task.id === id)
 })
 async function takePhoto() {
-    if (!task.value) return
-    const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: false,
-        resultType: CameraResultType.Uri,
-        source: CameraSource.Camera
-    })
-    if (image.webPath) {
-        taskStore.addPhotoToTask(task.value.id, image.webPath)
-    }
+  if (!task.value) return
+  const image = await Camera.getPhoto({
+    quality: 90,
+    allowEditing: false,
+    resultType: CameraResultType.Base64,
+    source: CameraSource.Camera
+  })
+  if (image.base64String) {
+    const imageData = `data:image/jpeg;base64,${image.base64String}`
+    taskStore.addPhotoToTask(task.value.id, imageData)
+  }
 }
 
 </script>
